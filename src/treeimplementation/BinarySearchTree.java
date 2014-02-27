@@ -62,20 +62,12 @@ public class BinarySearchTree implements BinarySearchTreeADT{
 
     @Override
     public boolean isInternal(BSTNode position) {
-        if (hasLeft(position)||hasRight(position)) {
-            return true;
-        } else {
-            return false;
-        }
+         return hasLeft(position)||hasRight(position);//if position node has at least on child, returns true
     }
 
     @Override
     public boolean isExternal(BSTNode position) {
-        if (hasLeft(position)||hasRight(position)) {
-            return false;
-        } else {
-            return true;
-        }
+         return !hasLeft(position) && !hasRight(position);//if position node doesn't have both left and right children, returns true
     }
 
     @Override
