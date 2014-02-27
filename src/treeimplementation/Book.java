@@ -16,6 +16,15 @@ public class Book {
     String authorSurname = "";
     int ISBN;
     
+    public Book(){}
+    
+    public Book(String bookTitle, String authorFName, String authorSurname, int ISBN){
+        this.bookTitle = bookTitle;
+        this.authorFName = authorFName;
+        this.authorSurname = authorSurname;
+        this.ISBN = ISBN;
+    }
+    
     /**
      * printBook method should be update according to the implementation of 
      * the binary tree. here it uses command prompt as std output. Use appropriate 
