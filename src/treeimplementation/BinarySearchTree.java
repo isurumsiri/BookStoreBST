@@ -22,7 +22,7 @@ public class BinarySearchTree implements BinarySearchTreeADT{
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (root == null || size == 0);
     }
 
     @Override
@@ -49,7 +49,10 @@ public class BinarySearchTree implements BinarySearchTreeADT{
 
     @Override
     public BSTNode parent(BSTNode child) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(child.parent == null)
+            return null;
+        else 
+            return child.parent;
     }
 
     @Override
@@ -59,12 +62,20 @@ public class BinarySearchTree implements BinarySearchTreeADT{
 
     @Override
     public boolean isInternal(BSTNode position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (hasLeft(position)||hasRight(position)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean isExternal(BSTNode position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (hasLeft(position)||hasRight(position)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
