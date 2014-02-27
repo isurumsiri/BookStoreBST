@@ -13,6 +13,12 @@ import java.util.Iterator;
  * @author Isuru
  */
 public class BinarySearchTree implements BinarySearchTreeADT{
+    
+    /**
+     *tree specific fields 
+     */
+     BSTNode root; //defining a reference to the root
+     int size = 0; //initializing size to zero
 
     @Override
     public boolean isEmpty() {
