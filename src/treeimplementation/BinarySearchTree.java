@@ -17,12 +17,12 @@ public class BinarySearchTree implements BinarySearchTreeADT{
     /**
      *tree specific fields 
      */
-     BSTNode root; //defining a reference to the root
+     BSTNode rootN; //defining a reference to the root
      int size = 0; //initializing size to zero
 
     @Override
     public boolean isEmpty() {
-        return (root == null || size == 0);
+        return (rootN == null || size == 0);
     }
 
     @Override
@@ -44,7 +44,10 @@ public class BinarySearchTree implements BinarySearchTreeADT{
 
     @Override
     public BSTNode root() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(rootN == null)
+            return null;
+        else
+            return rootN;
     }
 
     @Override
