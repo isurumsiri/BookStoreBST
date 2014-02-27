@@ -75,7 +75,7 @@ public class BinarySearchTree implements BinarySearchTreeADT{
 
     @Override
     public boolean isRoot(BSTNode position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return position == root;
     }
 
     @Override
