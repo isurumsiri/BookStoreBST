@@ -80,7 +80,9 @@ public class BinarySearchTree implements BinarySearchTreeADT{
 
     @Override
     public BSTNode replace(BSTNode position, BSTNode value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BSTNode tmp = position;
+        position = value;
+        return tmp;
     }
 
     @Override
@@ -90,37 +92,72 @@ public class BinarySearchTree implements BinarySearchTreeADT{
 
     @Override
     public BSTNode left(BSTNode position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(hasLeft(position)){
+            return position.leftChild;
+        }
+        else{
+            return null;
+        }
     }
 
     @Override
     public BSTNode right(BSTNode position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (hasRight(position)) {
+            return position.rightChild;
+        } else {
+            return null;
+        }
     }
 
     @Override
     public boolean hasLeft(BSTNode position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(position.leftChild!=null){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
     public boolean hasRight(BSTNode position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (position.rightChild!=null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public void preOrder(BSTNode position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        position.printBook();
+        if(hasLeft(position))
+        {
+            preOrder(position.leftChild);
+        }
+        if(hasRight(position))
+        {
+            preOrder(position.rightChild);
+        }
     }
 
     @Override
     public void postOrder(BSTNode position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(hasLeft(position))
+            postOrder(position.leftChild);
+        if(hasRight(position))
+            postOrder(position.rightChild);
+        else
+            position.printBook();
     }
 
     @Override
     public void inOrder(BSTNode position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(hasLeft(position))
+            inOrder(position.leftChild);
+        position.printBook(); 
+        if(hasRight(position))
+            inOrder(position.rightChild);
     }
     
 }
