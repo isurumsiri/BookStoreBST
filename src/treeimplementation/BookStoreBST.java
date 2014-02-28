@@ -92,6 +92,9 @@ public class BookStoreBST extends BinarySearchTree{
         keywordSearch = keyword;
         if(isEmpty()){
             return null;
+            /*BSTNode bstn = new BSTNode("test","test","test",1);
+            keywordContainer.add(bstn);
+            return keywordContainer;*/
         }
         else{
             searchHelper(rootN);
