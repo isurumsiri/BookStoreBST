@@ -25,17 +25,21 @@ public class BookStoreBST extends BinarySearchTree{
         }
         else{
             BSTNode current = rootN;
+            BSTNode prevCurrent = rootN;
             while(current != null){//find a position to insert new book
                 if(newBook.bookTitle.compareTo(current.bookTitle) < 0){//if value of current node is < new node
+                    prevCurrent = current;
                     current = current.leftChild;//get right child of current node
                 }
-                else//new book is less than current node
+                else{//new book is less than current node
+                    prevCurrent = current;
                     current = current.rightChild;//gett left child of current node
+                }
             }
-            if(newBook.bookTitle.compareTo(current.bookTitle) < 0)
-                (current.parent).leftChild = newBook;
+            if(0 >= newBook.bookTitle.compareTo(prevCurrent.bookTitle))
+                (prevCurrent).leftChild = newBook;
             else
-                (current.parent).rightChild = newBook;
+                (prevCurrent).rightChild = newBook;
             size++;
         }
     }
@@ -97,6 +101,7 @@ public class BookStoreBST extends BinarySearchTree{
             return keywordContainer;*/
         }
         else{
+            keywordContainer.clear();
             searchHelper(rootN);
             return keywordContainer;
         }
@@ -117,6 +122,7 @@ public class BookStoreBST extends BinarySearchTree{
             return null;
         }
         else{
+            keywordContainer.clear();
             displayTreeHelper(rootN);
             return keywordContainer;
         }
@@ -129,6 +135,21 @@ public class BookStoreBST extends BinarySearchTree{
         if(hasRight(current))
             displayTreeHelper(current.rightChild);
     }
+    
+    protected LinkedList<BSTNode> displayContent(){
+        keywordContainer.clear();
+        displayContentHelper(rootN);
+        return keywordContainer;
+    }
+    
+    protected void displayContentHelper(BSTNode current){
+        if(current == null)
+            return;
+        displayContentHelper(current.leftChild);
+        keywordContainer.add(current);
+        displayContentHelper(current.rightChild);
+    }
+    
     
     public void readXML(){
     

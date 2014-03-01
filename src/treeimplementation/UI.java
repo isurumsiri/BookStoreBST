@@ -61,7 +61,6 @@ public class UI extends javax.swing.JFrame {
         txtKeywordSearch = new javax.swing.JTextField();
         btnKeywordSearch = new javax.swing.JButton();
         btnView = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -165,8 +164,18 @@ public class UI extends javax.swing.JFrame {
         jLabel6.setText("By ISBN:");
 
         btnSearchByName.setText("Search");
+        btnSearchByName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchByNameActionPerformed(evt);
+            }
+        });
 
         btnSearchByISBN.setText("Search");
+        btnSearchByISBN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchByISBNActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -216,8 +225,18 @@ public class UI extends javax.swing.JFrame {
         jLabel8.setText("By ISBN:");
 
         btnDeleteByName.setText("Delete");
+        btnDeleteByName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteByNameActionPerformed(evt);
+            }
+        });
 
         btnDeleteByISBN.setText("Delete");
+        btnDeleteByISBN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteByISBNActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -262,6 +281,11 @@ public class UI extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Keyword Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
 
         btnKeywordSearch.setText("Search");
+        btnKeywordSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKeywordSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -286,8 +310,11 @@ public class UI extends javax.swing.JFrame {
         );
 
         btnView.setText("View");
-
-        btnSave.setText("Save");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -316,10 +343,8 @@ public class UI extends javax.swing.JFrame {
                                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSave)
-                                    .addComponent(btnView))
-                                .addGap(29, 29, 29)))))
+                                .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -333,15 +358,15 @@ public class UI extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(btnView)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSave)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51))))
         );
 
         pack();
@@ -360,12 +385,81 @@ public class UI extends javax.swing.JFrame {
         int ISBN = Integer.parseInt(txtISBN.getText());
         bsbst.insert(title, authorFName, authorLName, ISBN);
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
-        int rowCount=dm.getRowCount();
-        for (int i = 0;i<rowCount;i++) {
-            dm.removeRow(i);
+        while(dm.getRowCount() > 0)
+        {
+            dm.removeRow(0);
         }
         setTable();
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnSearchByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchByNameActionPerformed
+        String title = txtSearchByName.getText();
+        BSTNode result = bsbst.searchByName(title);
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        while(dm.getRowCount() > 0)
+        {
+            dm.removeRow(0);
+        }
+        dm.addRow(new Object[]{result.bookTitle,result.authorFName,result.authorSurname,result.ISBN});
+    }//GEN-LAST:event_btnSearchByNameActionPerformed
+
+    private void btnSearchByISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchByISBNActionPerformed
+        int ISBN = Integer.parseInt(txtSearchByISBN.getText());
+        BSTNode result = bsbst.searchByISBN(ISBN);
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        while(dm.getRowCount() > 0)
+        {
+            dm.removeRow(0);
+        }
+        dm.addRow(new Object[]{result.bookTitle,result.authorFName,result.authorSurname,result.ISBN});
+    }//GEN-LAST:event_btnSearchByISBNActionPerformed
+
+    private void btnDeleteByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteByNameActionPerformed
+        String title = txtDeleteByName.getText();
+        BSTNode result = bsbst.deleteByName(title);
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        while(dm.getRowCount() > 0)
+        {
+            dm.removeRow(0);
+        }
+        dm.addRow(new Object[]{result.bookTitle,result.authorFName,result.authorSurname,result.ISBN});
+    }//GEN-LAST:event_btnDeleteByNameActionPerformed
+
+    private void btnDeleteByISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteByISBNActionPerformed
+        int ISBN = Integer.parseInt(txtDeleteByISBN.getText());
+        BSTNode result = bsbst.deleteByISBN(ISBN);
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        while(dm.getRowCount() > 0)
+        {
+            dm.removeRow(0);
+        }
+        dm.addRow(new Object[]{result.bookTitle,result.authorFName,result.authorSurname,result.ISBN});
+    }//GEN-LAST:event_btnDeleteByISBNActionPerformed
+
+    private void btnKeywordSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeywordSearchActionPerformed
+        String keyword = txtKeywordSearch.getText();
+        LinkedList<BSTNode> result = bsbst.searchKeyword(keyword);
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        while(dm.getRowCount() > 0)
+        {
+            dm.removeRow(0);
+        }
+        for(BSTNode bstn:result){
+            dm.addRow(new Object[]{bstn.bookTitle,bstn.authorFName,bstn.authorSurname,bstn.ISBN});
+        }
+    }//GEN-LAST:event_btnKeywordSearchActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        LinkedList<BSTNode> result = bsbst.displayContent();
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        while(dm.getRowCount() > 0)
+        {
+            dm.removeRow(0);
+        }
+        for(BSTNode bstn:result){
+            dm.addRow(new Object[]{bstn.bookTitle,bstn.authorFName,bstn.authorSurname,bstn.ISBN});
+        }
+    }//GEN-LAST:event_btnViewActionPerformed
 
     private void setTable(){
         LinkedList<BSTNode> books = bsbst.displayTree();
@@ -378,6 +472,7 @@ public class UI extends javax.swing.JFrame {
             System.out.println(bstn.ISBN);*/
                     
         }
+        books.clear();
     }
     /**
      * @param args the command line arguments
@@ -419,7 +514,6 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteByISBN;
     private javax.swing.JButton btnDeleteByName;
     private javax.swing.JButton btnKeywordSearch;
-    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearchByISBN;
     private javax.swing.JButton btnSearchByName;
     private javax.swing.JButton btnView;
